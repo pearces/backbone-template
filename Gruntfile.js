@@ -48,6 +48,9 @@ module.exports = function(grunt) {
           'tmp/libs.js': 'src/js/libs.js'
         }
       }
+    },
+    clean: {
+      dist: ['tmp', 'dist']
     }
   });
 
@@ -56,12 +59,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-browserify');
-  //TODO: add clean task for tmp, dist
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Default tasks
   grunt.registerTask('default', [
     'browserify',
     'jshint',
+    'clean',
     'concat',
     'uglify',
     'copy'
