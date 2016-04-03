@@ -7,9 +7,9 @@ module.exports = function(grunt) {
       },
       dist: {
         src: [
-          'tmp/**/*.js',
-          'src/**/*.js',
-          '!src/**/libs.js'
+          'src/js/core.js',
+          'src/js/app.js'
+          //TODO: add paths for backbone models, views, router, etc.
         ],
         dest: 'tmp/app.js'
       }
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/app.min.js': ['<%= concat.dist.dest %>']
+          'dist/app.min.js': ['<%= browserify.dist.dest %>']
         }
       }
     },
@@ -44,9 +44,10 @@ module.exports = function(grunt) {
     },
     browserify: {
       dist: {
-        files: {
-          'tmp/libs.js': 'src/js/libs.js'
-        }
+        src: [
+          'tmp/app.js'
+        ],
+        dest: 'tmp/app.js'
       }
     },
     clean: {
@@ -63,10 +64,10 @@ module.exports = function(grunt) {
 
   // Default tasks
   grunt.registerTask('default', [
-    'browserify',
     'jshint',
     'clean',
     'concat',
+    'browserify',
     'uglify',
     'copy'
   ]);
