@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -8,8 +10,11 @@ module.exports = function(grunt) {
       dist: {
         src: [
           'src/js/core.js',
+          'src/js/models/**/*.js',
+          'src/js/collections/**/*.js',
+          'src/js/views/**/*.js',
+          'src/js/routers/**/*.js',
           'src/js/app.js'
-          //TODO: add paths for backbone models, views, router, etc.
         ],
         dest: 'tmp/app.js'
       }
@@ -26,10 +31,18 @@ module.exports = function(grunt) {
     jshint: {
       files: ['Gruntfile.js', 'src/**/*.js'],
       options: {
+        globalstrict: true,
         globals: {
           jQuery: true,
           console: true,
-          module: true
+          module: true,
+          require: true,
+          window: true,
+          app: true,
+          global: true,
+          $: true,
+          _: true,
+          Backbone: true
         }
       }
     },
