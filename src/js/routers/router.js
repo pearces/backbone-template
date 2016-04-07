@@ -9,7 +9,7 @@ app.Router = Backbone.Router.extend({
   default: function() {
     var view = new app.AppView({ model: new app.AppModel(), collection: new app.AppModels() });
     app.renderFetch(view);
-    // models/collections can be fetch as well: app.fetchRender(view, view$.model, view.collection, ...);
+    // models/collections can be fetch as well: app.fetchRender(view, view.model, view.collection, ...);
   },
 
   navigate: function(fragment, options) {
