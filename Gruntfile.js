@@ -24,7 +24,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/app.min.js': ['<%= browserify.dist.dest %>']
+          'dist/js/app.min.js': ['<%= browserify.dist.dest %>']
         }
       }
     },
@@ -65,6 +65,23 @@ module.exports = function(grunt) {
     },
     clean: {
       dist: ['tmp', 'dist']
+    },
+    less: {
+      options: {
+        compress: true
+      },
+      dist: {
+        files: {
+          'tmp/app.css': 'src/less/*.less'
+        }
+      }
+    },
+    cssmin: {
+      dist: {
+        files: {
+          'dist/css/app.min.css': 'tmp/app.css'
+        }
+      }
     }
   });
 
@@ -74,6 +91,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   // Default tasks
   grunt.registerTask('default', [
@@ -81,7 +100,9 @@ module.exports = function(grunt) {
     'clean',
     'concat',
     'browserify',
+    'less',
     'uglify',
+    'cssmin',
     'copy'
   ]);
 };
