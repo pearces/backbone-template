@@ -21,6 +21,8 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
+        sourceMap: true,
+        sourceMapIncludeSources: true
       },
       dist: {
         files: {
@@ -77,6 +79,9 @@ module.exports = function(grunt) {
       }
     },
     cssmin: {
+      options: {
+        sourceMap: true
+      },
       dist: {
         files: {
           'dist/css/app.min.css': 'tmp/app.css'
