@@ -26,7 +26,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/js/app.min.js': ['<%= browserify.dist.dest %>']
+          'dist/js/app.min.js': ['<%= browserify.dist.dest %>'],
+          'dist/js/templates.min.js': ['tmp/templates.js']
         }
       }
     },
@@ -87,6 +88,24 @@ module.exports = function(grunt) {
           'dist/css/app.min.css': 'tmp/app.css'
         }
       }
+    },
+    jst: {
+      compile: {
+        options: {
+          namespace: 'app.jst',
+          prettify: true,
+          templateSettings: {
+            variable: 'obj'
+          },
+          processName: function(filepath) {
+            var path = require('path');
+            return path.basename(filepath, '.html');
+          }
+        },
+        files: {
+          'tmp/templates.js': ['src/templates/*.html']
+        }
+      }
     }
   });
 
@@ -98,11 +117,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-jst');
 
   // Default tasks
   grunt.registerTask('default', [
     'jshint',
     'clean',
+    'jst',
     'concat',
     'browserify',
     'less',
