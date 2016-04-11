@@ -35,7 +35,7 @@ app.ajaxError = function(xhr, status, error) {
   console.error(error); //TODO: render the message in the UI
 };
 
-(function() {
+(function intialize() {
   // app initialization
   app.router = new app.Router();
   Backbone.history.start({ pushState: true });

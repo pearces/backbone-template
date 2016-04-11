@@ -3,20 +3,30 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    src: {
+      js: 'src/js',
+      less: 'src/less',
+      templates: 'src/templates'
+    },
+    dist: {
+      js: 'dist/js',
+      css: 'dist/css'
+    },
+    tmp: 'tmp',
     concat: {
       options: {
         separator: '\n'
       },
       dist: {
         src: [
-          'src/js/core.js',
-          'src/js/models/**/*.js',
-          'src/js/collections/**/*.js',
-          'src/js/views/**/*.js',
-          'src/js/routers/**/*.js',
-          'src/js/app.js'
+          '<%= src.js %>/core.js',
+          '<%= src.js %>/models/**/*.js',
+          '<%= src.js %>/collections/**/*.js',
+          '<%= src.js %>/views/**/*.js',
+          '<%= src.js %>/routers/**/*.js',
+          '<%= src.js %>/app.js'
         ],
-        dest: 'tmp/app.js'
+        dest: '<%= tmp %>/app.js'
       }
     },
     uglify: {
@@ -26,8 +36,8 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/js/app.min.js': ['<%= browserify.dist.dest %>'],
-          'dist/js/templates.min.js': ['tmp/templates.js']
+          '<%= dist.js %>/app.min.js': ['<%= browserify.dist.dest %>'],
+          '<%= dist.js %>/templates.min.js': ['<%= tmp %>/templates.js']
         }
       }
     },
@@ -61,13 +71,13 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         src: [
-          'tmp/app.js'
+          '<%= concat.dist.dest %>'
         ],
-        dest: 'tmp/app.js'
+        dest: '<%= tmp %>/app.js'
       }
     },
     clean: {
-      dist: ['tmp', 'dist']
+      dist: ['<%= tmp %>', 'dist']
     },
     less: {
       options: {
@@ -75,7 +85,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'tmp/app.css': 'src/less/*.less'
+          '<%= tmp %>/app.css': '<%= src.less %>/*.less'
         }
       }
     },
@@ -85,7 +95,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/css/app.min.css': 'tmp/app.css'
+          '<%= dist.css %>/app.min.css': '<%= tmp %>/app.css'
         }
       }
     },
@@ -103,7 +113,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'tmp/templates.js': ['src/templates/*.html']
+          '<%= tmp %>/templates.js': ['<%= src.templates %>/*.html']
         }
       }
     }
