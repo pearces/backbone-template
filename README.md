@@ -11,7 +11,7 @@ Get the source:
 git clone git://github.com/pearces/backbone-template.git
 ```
 
-Install grunt 0.4.x or higher and grunt-cli if it is not present on your system (check with grunt -V)
+Install grunt 1.0.x or higher and grunt-cli if it is not present on your system (check with grunt -V)
 ```
 npm install -g grunt-cli
 ```
